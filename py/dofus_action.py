@@ -188,7 +188,7 @@ def combat_fini() :
         fight_finish = True
     return fight_finish 
 
-def attaque(x_sort,y_sort,x_ennemi,y_ennemi) :
+def attaque(x_sort,y_sort,x_ennemi,y_ennemi,t=1) :
     """ Attaque un ennemi à partir d'un sort et de sa position dans l'infobulle
 
     Args:
@@ -200,7 +200,18 @@ def attaque(x_sort,y_sort,x_ennemi,y_ennemi) :
     dofus_click(x_sort,y_sort,0.5,0.3)
     dofus_click(x_ennemi,y_ennemi,0.3,0.2)
     pyautogui.moveTo( v.dep_droite_milieu, duration=0.5)
+    time.sleep(t)
     
+def my_tourn():
+    """ 
+    Screen la time line du joueur en combat.
+    Returns:
+        boolean: True si c'est a notre joueur de jouer, sinon False
+    """
+    screen = pyautogui.screenshot(region = (786,1004,464,17))
+    red, green, blue  = np.array(screen).T # Temporarily unpack the bands for readability
+    my_tourn = ((red == v.color_tour_de_jeu[0]) & (green == v.color_tour_de_jeu[1]) & (blue == v.color_tour_de_jeu[2]))
+    return True in my_tourn
 
 def combat_attaque() :
     """
@@ -212,30 +223,16 @@ def combat_attaque() :
     """
     a = 1
     while combat_fini() == False :
-        time.sleep(5)
-        a = a+1
-        if (a % 2) == 0:
-            attaque(v.x_sort,v.y_sort,v.x_ennemi_1,v.y_ennemi_1)
-            time.sleep(2)
-            if combat_fini() == False :
-                attaque(v.x_sort,v.y_sort,v.x_ennemi_2,v.y_ennemi_2)
-                time.sleep(2)
-            if combat_fini() == False :
-                attaque(v.x_sort,v.y_sort,v.x_ennemi_1,v.y_ennemi_1)
-                time.sleep(2)
-        else :
-            attaque(v.x_sort,v.y_sort,v.x_ennemi_2,v.y_ennemi_2)
-            if combat_fini() == False :
-                attaque(v.x_sort,v.y_sort,v.x_ennemi_1,v.y_ennemi_1)
-                time.sleep(1)
-            if combat_fini() == False :
-                attaque(v.x_sort,v.y_sort,v.x_ennemi_2,v.y_ennemi_2)
-                time.sleep(1)
-        time.sleep(1)
-        pyautogui.press("f1")
-        time.sleep(1.5)
-    pyautogui.press("enter")
+        if my_tourn() == True :
+            attaque(v.x_sort,v.y_sort,v.x_ennemi_1,v.y_ennemi_1,2)
+            if combat_fini() == False : 
+                attaque(v.x_sort,v.y_sort,v.x_ennemi_2,v.y_ennemi_2,2)
+            if  combat_fini() == False : 
+                attaque(v.x_sort,v.y_sort,v.x_ennemi_1,v.y_ennem6.i_1,2)
+            
+            dofus_press("f1",1) 
     time.sleep(3)
+    dofus_press("enter",3)
 
 def travel(pos : str,t:float) : # effectue un voyage jusqu'a la map pos, t -> durée du voyage en s
     """Effectue un voyage autopilité en dragodinde jusqu'a une map de destination

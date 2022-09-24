@@ -57,6 +57,8 @@ x_select_roublar,y_select_roublar = 667,717 # connec to roublar compte
 ###############################################
 
 region_bouton_pret = (1320,945, 50, 30)
+region_tour_de_jeu = (786,1004,464,17)
+color_tour_de_jeu = (252,200,0)
 x_sort, y_sort = 929,985
 x_ennemi_1, y_ennemi_1      = 1710, 833
 x_ennemi_2, y_ennemi_2      = 1773, 833
