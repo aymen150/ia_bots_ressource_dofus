@@ -1,0 +1,8 @@
+opencv-python
+pytesseract
+time
+numpy
+PIL
+pyautogui
+rand
+socket
