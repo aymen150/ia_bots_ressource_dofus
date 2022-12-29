@@ -11,6 +11,7 @@ import socket
 import sys
 from pathlib import Path
 import models.predict as predict
+#pytesseract.pytesseract.tesseract_cmd=r'C:/Program Files/Tesseract-OCR/tesseract.exe'
 #sys.path.append(Path("D:/Users/Document D/project_dofus/my_bot"))
 #model_all_r = "models/model_r_800/model.pb"
 #label_all_r = "models/model_r_800/labels.txt"

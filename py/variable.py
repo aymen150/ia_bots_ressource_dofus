@@ -40,8 +40,8 @@ x_close_magasin , y_close_magasin = 730,117
 
 region_map = (15,71,85,35)
 color_pos_dofus = (228,228,226)
-color_pos_dofus_p = (248,248,246)
-color_pos_dofus_m = (208,208,206)
+color_pos_dofus_p = (255,255,255)
+color_pos_dofus_m = (200,200,200)
 
 ###############################################
 ###############   CONNEXION  ##################
@@ -55,11 +55,34 @@ x_select_roublar,y_select_roublar = 667,717 # connec to roublar compte
 ###############################################
 ################   COMBAT  ####################
 ###############################################
+distance_1PO = 50
+distance_3PO = 150
+distance_6PO = 300
+distance_12PO = 600
+dep_O_2pm = (-85,0)
+dep_E_2pm = (85,0)
+dep_N_2pm = (0,-45)
+dep_S_2pm = (0,45)
+
+dep_NE_2pm = (90,-50)
+dep_SE_2pm = (80,40)
+dep_SO_2pm = (-90,50)
+dep_NO_2pm = (-80,-40)
+
+dep_NE_1pm = (45,-25)
+dep_SE_1pm = (40,20)
+dep_SO_1pm = (-45,25)
+dep_NO_1pm = (-40,-20)
 
 region_bouton_pret = (1320,945, 50, 30)
 region_tour_de_jeu = (786,1004,464,17)
+
+region_PA = (700,990,35,35)
+color_PA = (255,255,255)
+
 color_tour_de_jeu = (252,200,0)
-x_sort, y_sort = 929,985
+x_sort_1, y_sort_1 = 815,944
+x_sort_2, y_sort_2 = 815,988
 x_ennemi_1, y_ennemi_1      = 1710, 833
 x_ennemi_2, y_ennemi_2      = 1773, 833
 
