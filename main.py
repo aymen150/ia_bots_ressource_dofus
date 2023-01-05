@@ -41,12 +41,16 @@ od_model = predict.load_model(MODEL_FILENAME = model, LABELS_FILENAME = label)
 od_model_fight = predict.load_model(MODEL_FILENAME = model_fight,LABELS_FILENAME = label_fight)
 
 #choise "Bonta" : "Amakna" : "Sufokia" : "Pandala"
-region_banque = "Bonta"
+region_banque = "Pandala"
 
 #choise : "amakna sud" : "foret bonta" : "dragoeuf" : "pandala sud" :
-region_parcours = "foret bonta"
+region_parcours = "pandala sud"
 
-print("ca va commencer")
+print(""" 
+      ###############################################################
+      ##################### S   T   A   R   T   #####################
+      ###############################################################
+      """)
 time.sleep(5)
 pos_joueur = da.coordonnées_joueur((500,500))
 a = 0
@@ -77,7 +81,7 @@ while True :
             # detection des IA ressources
             predictions = od_model.predict_image(image)
             # liste des zones boxes des ressources
-            list_bounding_click_tmp =  da.predictions_to_click(predictions,w,h,proba_poisson=0.3,proba_plante=0.9,proba_bois=0.5)
+            list_bounding_click_tmp =  da.predictions_to_click(predictions,w,h,proba_poisson=0.3,proba_plante=0.3,proba_bois=0.5)
             list_bounding_click = [elem for elem in list_bounding_click_tmp if elem[1] not in list_recolte] 
             if len(list_bounding_click) > 0 :
                 list_bounding_click_desordonne = da.list_click_filter(list_bounding_click)    # filtre les positions pour eviter un changement de map

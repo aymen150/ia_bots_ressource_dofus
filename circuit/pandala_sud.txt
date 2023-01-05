@@ -1,6 +1,3 @@
-Map("","","")
-Map("","20,-28","dep_bas_milieu")
-Map("dep_bas_milieu","20,-27","dep_bas_milieu")
 Map("dep_bas_milieu","20,-26","dep_gauche_milieu")
 Map("dep_gauche_milieu","19,-26","dep_bas_milieu")
 Map("dep_bas_milieu","19,-25","dep_gauche_milieu")

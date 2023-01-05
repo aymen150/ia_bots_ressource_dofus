@@ -232,7 +232,11 @@ def my_map_dofus(resize, config : bool )  :
     return filtre_my_map(map)
     
 def changement_map(image):
+    a = 0
     while image == pyautogui.screenshot(region = v.region_map ) :
+        if a > 15 : 
+            break
+        a += 1
         time.sleep(1)
     time.sleep(1)
 
@@ -554,9 +558,12 @@ def deplacer_mon_perso_2pm(perso, ennemi, PM : int) :
     direction = direction_ennemi(perso, ennemi)
     indice_direction = liste_direction.index(direction)
     a  = 0
+    deplacement_clique = (500,500)
     while PM == int(nombre_PM()) :
         if a > 1 :
             print("new : ", liste_direction[indice_direction] )
+        if a > 15 :
+            break
         deplacement_clique, i = direction_deplacement_clique(perso, liste_direction[indice_direction])
         dofus_click(deplacement_clique[0],deplacement_clique[1],0.5,1.5)
         indice_direction = (i-1) 
@@ -568,10 +575,14 @@ def deplacer_mon_perso_2pm(perso, ennemi, PM : int) :
 def deplacer_mon_perso(perso,ennemi) :
     distance_ennemi = Distance(perso, ennemi)
     PM = int(nombre_PM())
+    a = 0
     while distance_ennemi > v.distance_3PO and PM > 1:
+        if a > 15 :
+            break
         perso = deplacer_mon_perso_2pm(perso,ennemi, PM)
         distance_ennemi = Distance(perso, ennemi)
         PM = int(nombre_PM())
+        a += 1
     return perso
         
 def combat_attaque() :
