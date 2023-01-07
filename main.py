@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 import pyautogui
 import py.variable as v
-import py.Map as m
+import py.map as m
 import py.dofus_action as da
 import socket
 import sys
