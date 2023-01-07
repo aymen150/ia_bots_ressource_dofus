@@ -1,8 +1,10 @@
-opencv-python
-pytesseract
-time
-numpy
-PIL
-pyautogui
-rand
+pytesseract ==  0.3.10
+pandas == 1.4.2
+numpy == 1.23.2
+pillow == 9.1.0
+pyautogui == 0.9.53
+rand == 0.3.0
 socket
+jaro-winkler == 2.0.3
+tensorflow == 2.10.0
+pywin == 303

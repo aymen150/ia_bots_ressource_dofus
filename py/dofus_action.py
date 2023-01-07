@@ -8,11 +8,12 @@ import numpy as np
 from PIL import Image
 import pyautogui
 import py.variable as v
-import py.Map as m
+import py.map as m
 import socket
 import random as rand
 from math import sqrt
 from random import randint
+import jaro
 
 
 #######################################################################################################
@@ -435,8 +436,9 @@ def combat_debut() :
     """
     image = pyautogui.screenshot( region = v.region_bouton_pret ).resize((300,200))
     txt = pytesseract.image_to_string(image)
+    score = jaro.jaro_metric("PRET", txt)
     fight_debut = False 
-    if txt != "":
+    if score > 0.4 :
         fight_debut = True 
     else :
         fight_debut = False
@@ -457,8 +459,10 @@ def combat_fini() :
     txt_1 = pytesseract.image_to_string(pyautogui.screenshot( region = v.region_bouton_fin_de_tour ).resize((300,200)))
     txt_2 = pytesseract.image_to_string(pyautogui.screenshot( region = v.region_bouton_pret  ).resize((300,200)))
     txt = txt_1 + txt_2
+    score_pret = jaro.jaro_metric("PRET", txt_1)
+    score_tour = jaro.jaro_metric("TERMINER SON TOUR", txt_2)
     fight_finish = False 
-    if txt != "" :
+    if  score_pret > 0.4 or  score_tour > 0.3 :
         fight_finish = False 
     else :
         fight_finish = True
