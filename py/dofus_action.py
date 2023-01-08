@@ -231,23 +231,19 @@ def my_map_dofus(resize, config : str )  :
     
     return filtre_my_map(map)
     
-def changement_map(image, x,y):
-    a = 0
-    dep = [ v.dep_gauche_haut , v.dep_droite_haut, v.dep_gauche_bas , v.dep_droite_bas
-           ,v.dep_haut_droite , v.dep_bas_droite,  v.dep_haut_gauche , v.dep_bas_gauche]
-           
+def changement_map(image, dep):
+    a = 0      
     while image == pyautogui.screenshot(region = v.region_map ) :
         if (a % 10) == 0 :
             dofus_press("enter",0.5)
-            new_dep = dep[randint(0,7)]
+            new_dep = other_deplacement(dep)
             x,y = new_dep.x, new_dep.y
             dofus_click(x,y,0.3,0)
         a +=1
         if (a % 4) == 0 :
             dofus_click(x,y,0.3,0)
         a +=1
-    
-    time.sleep(1)
+        time.sleep(1)     
     time.sleep(1)
 
 def distance_map(pos_d :str, pos_a : str): 
@@ -322,6 +318,38 @@ def coordonnées_joueur(pos) :
     else :
         return (500,500)
 
+
+
+def other_deplacement(pos) :
+    if   pos ==  v.dep_gauche_haut :
+        return v.dep_gauche_milieu
+    elif pos ==  v.dep_gauche_milieu:
+        return v.dep_gauche_bas
+    elif pos == v.dep_gauche_bas   :
+        return v.dep_gauche_haut
+    
+    elif pos == v.dep_droite_haut  :
+        return v.dep_droite_milieu
+    elif pos == v.dep_droite_milieu:
+        return v.dep_droite_bas
+    elif pos == v.dep_droite_bas   :
+        return v.dep_droite_haut
+    
+    elif pos ==  v.dep_haut_droite :
+        return v.dep_haut_milieu
+    elif pos ==  v.dep_haut_milieu :
+        return v.dep_haut_gauche
+    elif pos == v.dep_haut_gauche  :
+        return v.dep_haut_droite
+    
+    elif pos == v.dep_bas_droite   : 
+        return v.dep_bas_milieu
+    elif pos == v.dep_bas_milieu   :
+        return v.dep_bas_gauche
+    elif pos == v.dep_bas_gauche   :
+        return v.dep_bas_droite
+    else :
+        return (500,500)
 
 #######################################################################################################
 #######################################################################################################

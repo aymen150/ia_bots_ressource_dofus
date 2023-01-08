@@ -119,9 +119,10 @@ while True :
         # deplacement du personnage jusqu'a la prochaine map de recolte
         pos = (map.next_map.x, map.next_map.y)
         x,y = pos
+        print("changement de map")
         da.dofus_click(x,y,0.3,0)
         pos_joueur = da.coordonnées_joueur(pos)
-        da.changement_map(pyautogui.screenshot(region = v.region_map ),x,y)
+        da.changement_map(pyautogui.screenshot(region = v.region_map ), map.next_map)
         print("_____________________________________")
     
     # une fois le parcours fini direction la banque amakna déposer les ressources
