@@ -7,7 +7,7 @@ import time
 import numpy as np
 from PIL import Image
 import pyautogui
-import py.variable as v
+import py as v
 import py.map as m
 import socket
 import random as rand
