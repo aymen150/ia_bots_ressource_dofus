@@ -7,7 +7,7 @@ import time
 import numpy as np
 from PIL import Image
 import pyautogui
-import py as v
+import py.variable as v
 import py.map as m
 import socket
 import random as rand
@@ -232,15 +232,14 @@ def my_map_dofus(resize, config : str )  :
     return filtre_my_map(map)
     
 def changement_map(image, dep):
-    a = 0      
+    a = 1     
     while image == pyautogui.screenshot(region = v.region_map ) :
         if (a % 10) == 0 :
             dofus_press("enter",0.5)
             new_dep = other_deplacement(dep)
             x,y = new_dep.x, new_dep.y
             dofus_click(x,y,0.3,0)
-        a +=1
-        if (a % 4) == 0 :
+        elif (a % 5) == 0 :
             dofus_click(x,y,0.3,0)
         a +=1
         time.sleep(1)     
