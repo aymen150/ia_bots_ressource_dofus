@@ -232,7 +232,8 @@ def my_map_dofus(resize, config : str )  :
     return filtre_my_map(map)
     
 def changement_map(image, dep):
-    a = 1     
+    a = 1
+    x,y = dep.x, dep.y
     while image == pyautogui.screenshot(region = v.region_map ) :
         if (a % 10) == 0 :
             dofus_press("enter",0.5)
