@@ -4,8 +4,7 @@ import time
 import numpy as np
 from PIL import Image, ImageDraw
 import pyautogui
-import py as v
-import py.variable
+import py.variable as v
 import py.map as m
 import py.dofus_action as da
 import socket
