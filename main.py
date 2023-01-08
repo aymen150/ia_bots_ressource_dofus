@@ -46,11 +46,7 @@ region_banque = "Pandala"
 #choise : "amakna sud" : "foret bonta" : "dragoeuf" : "pandala sud" :
 region_parcours = "pandala sud"
 
-print(""" 
-      ###############################################################
-      ##################### S   T   A   R   T   #####################
-      ###############################################################y
-      """)
+print("ca va commencer")
 time.sleep(5)
 pos_joueur = da.coordonnées_joueur((500,500))
 a = 0
@@ -64,7 +60,9 @@ while True :
         if map_actuelle == "999,999" :
             print("error detecting map")
             map_actuelle = map.map 
-        elif not da.eguals_map(map_actuelle, map.map) :                    # verifier que la map actuelle en jeu est bien la map sur laquel on travaille
+        elif not da.eguals_map(map_actuelle, map.map) :  
+                              # verifier que la map actuelle en jeu est bien la map sur laquel on travaille
+            print("map théorique :", map.map, "map pcr : ", map_actuelle)
             da.travel(map.map,da.distance_map(map_actuelle,map.map)*10)     
         list_bounding_click = []
         list_recolte = []
@@ -81,8 +79,9 @@ while True :
             # detection des IA ressources
             predictions = od_model.predict_image(image)
             # liste des zones boxes des ressources
-            list_bounding_click_tmp =  da.predictions_to_click(predictions,w,h,proba_poisson=0.3,proba_plante=0.3,proba_bois=0.5)
+            list_bounding_click_tmp =  da.predictions_to_click(predictions,w,h,proba_poisson=0.3,proba_plante=0.5,proba_bois=0.5)
             list_bounding_click = [elem for elem in list_bounding_click_tmp if elem[1] not in list_recolte] 
+            print("recherche ressource")
             if len(list_bounding_click) > 0 :
                 list_bounding_click_desordonne = da.list_click_filter(list_bounding_click)    # filtre les positions pour eviter un changement de map
                 if len(list_bounding_click_desordonne) > 0 :
@@ -96,9 +95,11 @@ while True :
                         #da.connexion() 
                     x,y = click
                     if da.click_in_list_bounding((x,y),list_bounding_deja_cliquer) == False : 
-                        da.dofus_click(x,y,0.1,3)                 # recolte de la ressources
+                        da.dofus_click(x,y,0.1,4)                 # recolte de la ressources
                         print("click ", x,y)
                         list_bounding_deja_cliquer.append(bounding)
+                else :
+                    break
             
             if da.combat_debut() :
                 print("debut combat")
@@ -120,7 +121,7 @@ while True :
         x,y = pos
         da.dofus_click(x,y,0.3,0)
         pos_joueur = da.coordonnées_joueur(pos)
-        da.changement_map(pyautogui.screenshot(region = v.region_map ))
+        da.changement_map(pyautogui.screenshot(region = v.region_map ),x,y)
         print("_____________________________________")
     
     # une fois le parcours fini direction la banque amakna déposer les ressources

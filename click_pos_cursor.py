@@ -1,4 +1,3 @@
-
 import win32api
 import time
 import pyautogui
@@ -31,21 +30,16 @@ import pyautogui
 import time
 from pathlib import Path
 from py.Coord import Coord
-
 path_file = Path(__file__)
 path_my_bot = path_file.parent.parent
 path_circuit_foret_bonta = Path(path_my_bot,"circuit","foret_bonta.txt")
 path_circuit_dragoeuf = Path(path_my_bot,"circuit","presqu_ile_dragoeuf.txt")
 path_circuit_porco = Path(path_my_bot,"circuit","amakna_sud.txt")
 path_circuit_pandala_sud = Path(path_my_bot,"circuit","pandala_sud.txt")
-
-
 ###############################################
 ############## ZONE DE JEU  ###################
 ###############################################
-
 dimension_ecran = ({taille_ecran[0]},{taille_ecran[1]})
-
 """)
 file.close()
 #####################################################################################
@@ -96,7 +90,6 @@ append_write(path_f, f"""
 ###############################################
 ############## BORDURE CARTE  #################
 ###############################################
-
 region_gameplay = ({x1}, {y1}, {x2}, {y2}) 
 """)
 #############################################################""""""
@@ -114,7 +107,6 @@ append_write(path_f, f"""
 ##############################################
 #################  TCHAT  #####################
 ############################################### 
-
 x_tchat, y_tchat = {x_tchat},{y_tchat}
 """)
 #############################################################""""""
@@ -140,7 +132,6 @@ append_write(path_f,f"""
 ###############################################
 ###################  POS  #####################
 ###############################################
-
 region_map = ({x1}, {y1}, {x2}, {y2})
 color_pos_dofus = (228,228,226)
 color_pos_dofus_p = (255,255,255)
@@ -216,28 +207,22 @@ append_write(path_f,f"""
 ###############################################
 ########### DEPLACEMENT PAR CASE  #############
 ###############################################
-
 dep_N_2pm = (0,-{y_move_vertical2})
 dep_S_2pm = (0,{y_move_vertical2})
 dep_O_2pm = (-{x_move_horizontal2},0)
 dep_E_2pm = ({x_move_horizontal2},0)
-
-
-dep_NE_2pm = ({xc-xNE2},{yc-yNE2})
-dep_SE_2pm = ({xc-xSE2},{yc-ySE2})
-dep_SO_2pm = ({xc-xSO2},{yc-ySO2})
-dep_NO_2pm = ({xc-xNO2},-{yc-yNO2})
-
-dep_NE_1pm = ({xc-xNE1},{yc-yNE1})
-dep_SE_1pm = ({xc-xSE1},{yc-ySE1})
-dep_SO_1pm = ({xc-xSO1},{yc-ySO1})
-dep_NO_1pm = ({xc-xNO1},{yc-yNO1})
-
+dep_NE_2pm = ({xNE2- xc},{yNE2- yc})
+dep_SE_2pm = ({xSE2- xc},{ySE2- yc})
+dep_SO_2pm = ({xSO2- xc},{ySO2- yc})
+dep_NO_2pm = ({xNO2- xc},{yNO2- yc})
+dep_NE_1pm = ({xNE1- xc},{yNE1- yc})
+dep_SE_1pm = ({xSE1- xc},{ySE1- yc})
+dep_SO_1pm = ({xSO1- xc},{ySO1- yc})
+dep_NO_1pm = ({xNO1- xc},{yNO1- yc})
 distance_1PO = 50
 distance_3PO = 150
 distance_6PO = 300
 distance_12PO = 600
-
 """)
 ######################################################################################
 print("""
@@ -252,7 +237,6 @@ append_write(path_f,f"""
 ###############################################
 ################  EN COMBAT  ##################
 ###############################################
-
 color_bouton_pret = (48,48,36)
 color_tour_de_jeu = (252,200,0)
 color_PA_PM = (255,255,255)
@@ -341,16 +325,6 @@ append_write(path_f,f"""
 region_PM = ({x1},{y1},{x2},{y2})
 """)
 
-
-
-
-input(""" pos_hors_zone_combat 
-      -> ENTER : cliquer sur x,y :""")
-x,y = get_click()
-append_write(path_f,f"""
-pos_hors_zone_combat = ({x},{y})
-""")
-
 input(""" pos_hors_zone_combat 
       -> ENTER : cliquer sur x,y :""")
 x,y = get_click()
@@ -397,18 +371,22 @@ print("""
 ###############################################
 ################   BANQUE  ####################
 ###############################################
-
 - CLIQUE COMMUNE A TOUTES LES BANQUES
-
 commencez par :
 ==> Entrée dans une banque
 ==> cliquer sur le conseiller de banque (hibou)
       """)
 
 input("""
+
       -> ENTER : cliquer sur "consulter banque" :""")
 x,y = get_click()
 append_write(path_f,f"""
+
+
+###############################################
+################   BANQUE  ####################
+###############################################
 ### coffre Banque : variables communes à toutes les banques
 x_consulter_banque, y_consulter_banque   = {x},{y}   #clic consulter sa banque
 """)
@@ -460,7 +438,7 @@ x_coffre_guilde_onglet_potion, y_coffre_guilde_onglet_potion  = {x},{y}   #clic 
 """)
 
 input("""
-      -> ENTER : cliquer sur onglet consommable : """)
+      -> ENTER : cliquer sur onglet fermer coffre de guilde : """)
 x,y = get_click()
 append_write(path_f,f"""
 x_coffre_guilde_fermer, y_coffre_guilde_fermer  = {x},{y}   #clic fermer banque
@@ -470,9 +448,7 @@ print("""
 ###############################################
 ################   BANQUE  ####################
 ###############################################
-
 - CLIQUE SPECIFIQUE A CHAQUE BANQUES
-
 commencez par :
 ==> Ce rendre map banque Amakna
 """)
@@ -618,7 +594,6 @@ print("""
 ###############################################
 ##############   DEPLACEMENT V2 #################
 ###############################################
-
 """)
 
 input("""
@@ -710,7 +685,6 @@ x,y = get_click()
 append_write(path_f,f"""
 dep_bas_gauche = Coord({x},{y})
 """)
-
 
 
 

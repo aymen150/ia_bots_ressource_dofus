@@ -233,21 +233,12 @@ def my_map_dofus(resize, config : str )  :
     
 def changement_map(image, x,y):
     a = 0
-    dep = [ v.dep_gauche_haut , v.dep_droite_haut, v.dep_gauche_bas , v.dep_droite_bas
-           ,v.dep_haut_droite , v.dep_bas_droite,  v.dep_haut_gauche , v.dep_bas_gauche]
-           
     while image == pyautogui.screenshot(region = v.region_map ) :
-        if (a % 10) == 0 :
-            dofus_press("enter",0.5)
-            new_dep = dep[randint(0,7)]
-            x,y = new_dep.x, new_dep.y
-            dofus_click(x,y,0.3,0)
-        a +=1
+        print("changement de map")
+        time.sleep(1)
         if (a % 4) == 0 :
             dofus_click(x,y,0.3,0)
         a +=1
-    
-    time.sleep(1)
     time.sleep(1)
 
 def distance_map(pos_d :str, pos_a : str): 
@@ -470,7 +461,7 @@ def combat_fini() :
     score_pret = jaro.jaro_metric("PRET", txt_1)
     score_tour = jaro.jaro_metric("TERMINER SON TOUR", txt_2)
     fight_finish = False 
-    if score_pret > 0.5 or score_tour > 0.3 :
+    if score_pret > 0 or score_tour > 0.3 :
         fight_finish = False 
     else :
         fight_finish = True
@@ -485,8 +476,8 @@ def attaque(x_sort,y_sort,x_ennemi,y_ennemi,t=1) :
         x_ennemi (_type_): coordonnée x de mon ennemi dans l'infobulle
         y_ennemi (_type_): cordonnée y de mon ennemi dans l'infobulle
     """
-    dofus_click(x_sort,y_sort,0.5,0.5)
-    dofus_click(x_ennemi,y_ennemi,0.3,0.5)
+    dofus_click(x_sort,y_sort,0.5,0.3)
+    dofus_click(x_ennemi,y_ennemi,0.3,0.2)
     pyautogui.moveTo( v.pos_hors_zone_combat, duration=0.5)
     time.sleep(t)
     
@@ -570,7 +561,6 @@ def deplacer_mon_perso_2pm(perso, ennemi, PM : int) :
     direction = direction_ennemi(perso, ennemi)
     indice_direction = liste_direction.index(direction)
     a  = 0
-    deplacement_clique, i = direction_deplacement_clique(perso, liste_direction[indice_direction])
     while PM == int(nombre_PM()) :
         if a > 1 :
             print("new : ", liste_direction[indice_direction] )
