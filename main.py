@@ -4,7 +4,7 @@ import time
 import numpy as np
 from PIL import Image, ImageDraw
 import pyautogui
-import py as v
+import py.variable as v
 import py.map as m
 import py.dofus_action as da
 import socket
@@ -41,10 +41,10 @@ od_model = predict.load_model(MODEL_FILENAME = model, LABELS_FILENAME = label)
 od_model_fight = predict.load_model(MODEL_FILENAME = model_fight,LABELS_FILENAME = label_fight)
 
 #choise "Bonta" : "Amakna" : "Sufokia" : "Pandala"
-region_banque = "Pandala"
+region_banque = "Sufokia"
 
 #choise : "amakna sud" : "foret bonta" : "dragoeuf" : "pandala sud" :
-region_parcours = "pandala sud"
+region_parcours = "amakna sud"
 
 print("ca va commencer")
 time.sleep(5)
