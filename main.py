@@ -103,7 +103,7 @@ while True :
             
             if da.combat_debut() :
                 print("debut combat")
-                time.sleep(0.5)
+                time.sleep(0.2)
                 pyautogui.press("f1")
                 while da.combat_fini() == False :
                     if da.my_tourn() == True :
@@ -111,6 +111,8 @@ while True :
                         w_f,h_f = image_fight.size
                         predictions_fight = od_model_fight.predict_image(image_fight)
                         da.combat(predictions_fight,w_f,h_f)
+                    else :
+                        time.sleep(2)
                 time.sleep(3)
                 da.dofus_press("enter",3)
                 print("fin du combat")

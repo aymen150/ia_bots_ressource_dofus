@@ -565,60 +565,47 @@ def direction_ennemi(mon_perso,ennemi) :
         print("SE")
         return "SE"
 
-def direction_deplacement_clique(perso, direction):
-    match direction :
+def deplacer_mon_perso(perso, ennemi, pm) :
+    if pm == 0 :
+        return perso
+    while pm >= 2 and Distance(perso, ennemi) > 140 : 
+        direction = direction_ennemi(perso, ennemi)
+        match direction :
             case "N" : 
-                deplacement = add_deplacement(perso, v.dep_N_2pm)
-                i = 0
-            case "NO" :
-                deplacement = add_deplacement(perso, v.dep_NO_2pm)
-                i = 1
+                perso = add_deplacement(perso, v.dep_N_2pm)
+                pm -= 2
             case "O" :
-                deplacement = add_deplacement(perso, v.dep_O_2pm)
-                i = 2
-            case "SO" :
-                deplacement = add_deplacement(perso, v.dep_SO_2pm)
-                i = 3
+                perso = add_deplacement(perso, v.dep_O_2pm)
+                pm -= 2
             case "S" :
-                deplacement = add_deplacement(perso, v.dep_S_2pm)
-                i = 4
-            case "SE" :
-                deplacement = add_deplacement(perso, v.dep_SE_2pm)
-                i = 5
+                perso = add_deplacement(perso, v.dep_S_2pm)
             case "E" :
-                deplacement = add_deplacement(perso, v.dep_E_2pm)
-                i = 6
+                perso = add_deplacement(perso, v.dep_E_2pm)
+                pm -= 2
             case "NE" :
-                deplacement = add_deplacement(perso, v.dep_NE_2pm)
-                i = 7
-    return deplacement, i
-
-def deplacer_mon_perso_2pm(perso, ennemi, PM : int) :
-    liste_direction = ["N","NO","O","SO","S","SE","E","NE"]
-    direction = direction_ennemi(perso, ennemi)
-    indice_direction = liste_direction.index(direction)
-    a  = 0
-    deplacement_clique, i = direction_deplacement_clique(perso, liste_direction[indice_direction])
-    while PM == int(nombre_PM()) :
-        if a > 1 :
-            print("new : ", liste_direction[indice_direction] )
-        deplacement_clique, i = direction_deplacement_clique(perso, liste_direction[indice_direction])
-        dofus_click(deplacement_clique[0],deplacement_clique[1],0.5,1.5)
-        indice_direction = (i-1) 
-        if indice_direction == -1 :
-            indice_direction = 7
-        a+=1
-    return deplacement_clique
-
-def deplacer_mon_perso(perso,ennemi) :
-    distance_ennemi = Distance(perso, ennemi)
-    PM = int(nombre_PM())
-    while distance_ennemi > v.distance_3PO and PM > 1:
-        perso = deplacer_mon_perso_2pm(perso,ennemi, PM)
-        distance_ennemi = Distance(perso, ennemi)
-        PM = int(nombre_PM())
+                perso = add_deplacement(perso, v.dep_NE_2pm)
+                pm -= 2
+            case "NO" :
+                perso = add_deplacement(perso, v.dep_NO_2pm)
+                pm -= 2
+            case "SO" :
+                perso = add_deplacement(perso, v.dep_SO_2pm)
+                pm -= 2
+            case "SE" :
+                perso = add_deplacement(perso, v.dep_SE_2pm)
+                pm -= 2
     return perso
-        
+
+
+
+def add_deplacement(perso, deplacement) :
+    perso_x , perso_y = perso
+    deplacement_x , deplacement_y = deplacement
+    return ((float(perso_x) + float(deplacement_x)),(float(perso_y) + float(deplacement_y)))
+
+
+
+
 def combat_attaque() :
     """
     Tant que le combat est en cours :
@@ -647,8 +634,8 @@ def combat(predictions,w,h) :
     
     ferme le résumé du combat    
     """
-
-    list_ennemis = [list_click(x["boundingBox"],w, h,1) for x in predictions if  ((x["tagName"] == "ennemi") and (x["probability"]) > 0.4)] 
+    pm = 5
+    list_ennemis = [list_click(x["boundingBox"],w, h,1) for x in predictions if  ((x["tagName"] == "ennemi") and (x["probability"]) > 0.5)] 
     list_allie = [list_click(x["boundingBox"],w, h,1) for x in predictions if  ((x["tagName"] == "allie") and (x["probability"]) > 0.1)] 
     #print(list_ennemis, list_allie)
     if len(list_ennemis) == 0 or len(list_allie) == 0 :
@@ -656,16 +643,21 @@ def combat(predictions,w,h) :
         combat_attaque()
     else :
         mon_perso = list_allie[0]
-        plus_proche_ennemi = minDistance_combat(mon_perso, list_ennemis)
+        plus_proche_ennemi = minDistance(mon_perso, list_ennemis)
         x_ennemi,y_ennemi = plus_proche_ennemi
-        mon_perso = deplacer_mon_perso(mon_perso,  plus_proche_ennemi)
         distance_ennemi = Distance(mon_perso,plus_proche_ennemi)
+
+        if  distance_ennemi > v.distance_3PO :
+                deplacement = deplacer_mon_perso(mon_perso,plus_proche_ennemi,pm)
+                dofus_click(deplacement[0],deplacement[1],1,1)
+                distance_ennemi = Distance(deplacement,plus_proche_ennemi)
+
         if distance_ennemi <= v.distance_12PO + 10 : 
-            attaque(v.x_sort_1,v.y_sort_1,x_ennemi,y_ennemi,1)
+            attaque(v.x_sort_1,v.y_sort_1,x_ennemi,y_ennemi,2)
             if combat_fini() == False : 
-                attaque(v.x_sort_1,v.y_sort_1,x_ennemi,y_ennemi,1)
+                attaque(v.x_sort_1,v.y_sort_1,x_ennemi,y_ennemi,2)
             if  combat_fini() == False : 
-                attaque(v.x_sort_2,v.y_sort_2,x_ennemi,y_ennemi,1)        
+                attaque(v.x_sort_2,v.y_sort_2,x_ennemi,y_ennemi,2)        
     dofus_press("f1",1) 
 
 
