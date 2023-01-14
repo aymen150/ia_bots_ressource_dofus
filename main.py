@@ -46,15 +46,22 @@ region_banque = "Sufokia"
 #choise : "amakna sud" : "foret bonta" : "dragoeuf" : "pandala sud" :
 region_parcours = "amakna sud"
 
-print("ca va commencer")
+print("""
+      ######################################
+      #######   S   T   A   R   T   #########
+      #######################################
+      """)
 time.sleep(5)
 pos_joueur = da.coordonnées_joueur((500,500))
 a = 0
 
 circuit = m.circuit(region_parcours) 
 while True :                                    
-    for map in circuit :                       # pour chaque map du parcours
-        time.sleep(2)
+    for map in circuit :                      # pour chaque map du parcours
+        t = time.localtime()
+        current_time = time.strftime("%H:%M:%S", t)
+        print(current_time)
+        time.sleep(1)
                                                    #lecture ocr de la map actuelle
         map_actuelle = da.my_map()
         if map_actuelle == "999,999" :
@@ -125,6 +132,7 @@ while True :
         da.dofus_click(x,y,0.3,0)
         pos_joueur = da.coordonnées_joueur(pos)
         da.changement_map(pyautogui.screenshot(region = v.region_map ), map.next_map)
+        print("fin changement de map")
         print("_____________________________________")
     
     # une fois le parcours fini direction la banque amakna déposer les ressources

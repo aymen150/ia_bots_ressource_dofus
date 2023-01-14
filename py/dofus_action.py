@@ -9,6 +9,7 @@ from PIL import Image
 import pyautogui
 import py.variable as v
 import py.map as m
+from py.Coord import Coord
 import socket
 import random as rand
 from math import sqrt
@@ -280,41 +281,45 @@ def travel(pos : str,t:float) : # effectue un voyage jusqu'a la map pos, t -> du
     pyautogui.click(v.x_tchat,v.y_tchat-30)
     time.sleep(1)
 
+def coord_to_click(coord : Coord) :
+    x_click, y_click = coord.x , coord.y
+    return (x_click, y_click)
+
 def coordonnées_joueur(pos) :
-    if   pos ==  v.dep_gauche_haut :
-        return v.dep_droite_haut
-    elif pos ==  v.dep_gauche_milieu:
-        return v.dep_droite_milieu
+    if   pos ==  coord_to_click( v.dep_gauche_haut ) :
+        return coord_to_click( v.dep_droite_haut)
+    elif pos ==  coord_to_click( v.dep_gauche_milieu) :
+        return coord_to_click( v.dep_droite_milieu)
     
-    elif pos == v.dep_gauche_bas   :
-        return v.dep_droite_bas
+    elif pos == coord_to_click( v.dep_gauche_bas   ) :
+        return coord_to_click( v.dep_droite_bas)
     
-    elif pos == v.dep_droite_haut  :
-        return v.dep_gauche_haut
+    elif pos == coord_to_click( v.dep_droite_haut  ) :
+        return coord_to_click( v.dep_gauche_haut)
     
-    elif pos == v.dep_droite_milieu:
-        return v.dep_gauche_milieu
+    elif pos == coord_to_click( v.dep_droite_milieu) :
+        return coord_to_click( v.dep_gauche_milieu)
     
-    elif pos == v.dep_droite_bas   :
-        return v.dep_gauche_bas
+    elif pos == coord_to_click( v.dep_droite_bas   ) :
+        return coord_to_click( v.dep_gauche_bas)
     
-    elif pos ==  v.dep_haut_droite :
-        return v.dep_bas_droite
+    elif pos ==  coord_to_click( v.dep_haut_droite ) :
+        return coord_to_click( v.dep_bas_droite)
     
-    elif pos ==  v.dep_haut_milieu :
-        return v.dep_bas_milieu
+    elif pos ==  coord_to_click( v.dep_haut_milieu ) :
+        return coord_to_click( v.dep_bas_milieu)
     
-    elif pos == v.dep_haut_gauche  :
-        return v.dep_bas_gauche
+    elif pos == coord_to_click( v.dep_haut_gauche  ) :
+        return coord_to_click( v.dep_bas_gauche)
     
-    elif pos == v.dep_bas_droite   : 
-        return v.dep_haut_droite
+    elif pos == coord_to_click( v.dep_bas_droite   ) : 
+        return coord_to_click( v.dep_haut_droite)
     
-    elif pos == v.dep_bas_milieu   :
-        return v.dep_haut_milieu
+    elif pos == coord_to_click( v.dep_bas_milieu   ) :
+        return coord_to_click( v.dep_haut_milieu)
     
-    elif pos == v.dep_bas_gauche   :
-        return v.dep_haut_gauche
+    elif pos == coord_to_click( v.dep_bas_gauche   ) :
+        return coord_to_click( v.dep_haut_gauche)
     else :
         return (500,500)
 
@@ -513,8 +518,8 @@ def attaque(x_sort,y_sort,x_ennemi,y_ennemi,t=1) :
         x_ennemi (_type_): coordonnée x de mon ennemi dans l'infobulle
         y_ennemi (_type_): cordonnée y de mon ennemi dans l'infobulle
     """
-    dofus_click(x_sort,y_sort,0.5,0.5)
-    dofus_click(x_ennemi,y_ennemi,0.3,0.5)
+    dofus_click(x_sort,y_sort,0.5,0.3)
+    dofus_click(x_ennemi,y_ennemi,0.3,0.3)
     pyautogui.moveTo( v.pos_hors_zone_combat, duration=0.5)
     time.sleep(t)
     
@@ -598,12 +603,6 @@ def deplacer_mon_perso(perso, ennemi, pm) :
 
 
 
-def add_deplacement(perso, deplacement) :
-    perso_x , perso_y = perso
-    deplacement_x , deplacement_y = deplacement
-    return ((float(perso_x) + float(deplacement_x)),(float(perso_y) + float(deplacement_y)))
-
-
 
 
 def combat_attaque() :
@@ -643,13 +642,13 @@ def combat(predictions,w,h) :
         combat_attaque()
     else :
         mon_perso = list_allie[0]
-        plus_proche_ennemi = minDistance(mon_perso, list_ennemis)
+        plus_proche_ennemi = minDistance_combat(mon_perso, list_ennemis)
         x_ennemi,y_ennemi = plus_proche_ennemi
         distance_ennemi = Distance(mon_perso,plus_proche_ennemi)
 
         if  distance_ennemi > v.distance_3PO :
                 deplacement = deplacer_mon_perso(mon_perso,plus_proche_ennemi,pm)
-                dofus_click(deplacement[0],deplacement[1],1,1)
+                dofus_click(deplacement[0],deplacement[1],1,0.5)
                 distance_ennemi = Distance(deplacement,plus_proche_ennemi)
 
         if distance_ennemi <= v.distance_12PO + 10 : 
