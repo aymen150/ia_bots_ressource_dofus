@@ -431,6 +431,13 @@ x_coffre_guilde_ressource, y_coffre_guilde_ressource    = {x},{y}   #clic fermer
 """)
 
 input("""
+      -> ENTER : cliquer sur une potion : """)
+x,y = get_click()
+append_write(path_f,f"""
+x_coffre_guilde_potion, y_coffre_guilde_potion    = {x},{y}   #clic fermer banque
+""")
+
+input("""
       -> ENTER : cliquer sur onglet consommable : """)
 x,y = get_click()
 append_write(path_f,f"""

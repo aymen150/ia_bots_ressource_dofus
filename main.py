@@ -29,8 +29,8 @@ import models.predict as predict
 #od_model_bois = predict.load_model(MODEL_FILENAME = model_bois, LABELS_FILENAME = label_bois)
 
 
-model = "models/model_all_i10/model.pb"
-label = "models/model_all_i10/labels.txt"
+model = "models/model_all_i12/model.pb"
+label = "models/model_all_i12/labels.txt"
 
 model_monstre9 = "models/model_monster_i10/model.pb"
 label_monstre9 = "models/model_monster_i10/labels.txt"
@@ -47,11 +47,19 @@ region_banque = "Sufokia"
 region_parcours = "amakna sud"
 
 print("""
+    !!! NE PAS OUBLIER !!!
+- Mode créature en combat
+- dragodinde équipé
+- Energie dragodinde
+- Onglet potion trier par ordre alphabétique
+      """)
+
+print("""
       ######################################
       #######   S   T   A   R   T   #########
       #######################################
       """)
-time.sleep(5)
+time.sleep(3)
 pos_joueur = da.coordonnées_joueur((500,500))
 a = 0
 
@@ -123,6 +131,9 @@ while True :
                 time.sleep(3)
                 da.dofus_press("enter",3)
                 print("fin du combat")
+                print("prendre du pain")
+                da.manger_du_pain(nb_vie = 30, nb_energie = 20)
+                print("pain mangé")
         time.sleep(3)
         
         # deplacement du personnage jusqu'a la prochaine map de recolte

@@ -115,6 +115,7 @@ x_fermer_banque_banque, y_fermer_banque_banque = 680,118 #clic fermer banque
 ### coffre Guilde : variables communes à toutes les banques
 x_coffre_guilde_onglet_ressource, y_coffre_guilde_onglet_ressource = 1458, 156
 x_coffre_guilde_ressource, y_coffre_guilde_ressource = 1280, 243
+x_coffre_guilde_potion, y_coffre_guilde_potion = 1398, 235
 x_coffre_guilde_onglet_potion, y_coffre_guilde_onglet_potion =  1404, 156
 x_coffre_guilde_fermer, y_coffre_guilde_fermer =  1554, 116
 

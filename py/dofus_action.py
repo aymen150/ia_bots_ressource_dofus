@@ -236,10 +236,16 @@ def changement_map(image, dep):
     a = 1
     x,y = dep.x, dep.y
     while image == pyautogui.screenshot(region = v.region_map ) :
-        if (a % 10) == 0 :
+        if a > 30 :
             dofus_press("enter",0.5)
-            new_dep = other_deplacement(dep)
-            x,y = new_dep.x, new_dep.y
+            dep = random_deplacement()
+            x,y = dep.x, dep.y
+            dofus_click(x,y,0.3,0)
+            time.sleep(8)
+        elif (a % 10) == 0 :
+            dofus_press("enter",0.5)
+            dep = other_deplacement(dep)
+            x,y = dep.x, dep.y
             dofus_click(x,y,0.3,0)
         elif (a % 5) == 0 :
             dofus_click(x,y,0.3,0)
@@ -323,7 +329,12 @@ def coordonnées_joueur(pos) :
     else :
         return (500,500)
 
-
+def random_deplacement():
+    dep=[ v.dep_gauche_haut, v.dep_gauche_milieu, v.dep_gauche_bas, 
+         v.dep_droite_haut, v.dep_droite_milieu, v.dep_droite_bas, 
+         v.dep_haut_droite, v.dep_haut_milieu, v.dep_haut_gauche, 
+         v.dep_bas_droite, v.dep_bas_milieu, v.dep_bas_gauche ]
+    return dep[randint(0,8)]
 
 def other_deplacement(pos) :
     if   pos ==  v.dep_gauche_haut :
@@ -415,14 +426,30 @@ def transfert_coffre_ressource(onglet_inventaire, nb_ressource) :
     match onglet_inventaire :
         case "ressource" :
             dofus_click(v.x_coffre_guilde_onglet_ressource, v.y_coffre_guilde_onglet_ressource,0.5,4)
+            transfert_ressource(v.x_coffre_guilde_ressource, v.y_coffre_guilde_ressource, nb_ressource)
         case "potion" :
             dofus_click(v.x_coffre_guilde_onglet_potion, v.y_coffre_guilde_onglet_potion, 0.5,2)
+            transfert_ressource(v.x_coffre_guilde_potion, v.y_coffre_guilde_potion, nb_ressource)
+    time.sleep(5)
+
+def transfert_ressource(x,y,nb) :
     pyautogui.keyDown("ctrl")#fermetuer de la fenetre dofus
-    for i in range(nb_ressource) : 
-        pyautogui.doubleClick(x = v.x_coffre_guilde_ressource, y= v.y_coffre_guilde_ressource)
+    for i in range(nb) : 
+        pyautogui.doubleClick(x = x , y= y)
         time.sleep(rand.uniform(0.9,1.9))
     pyautogui.keyUp("ctrl")
-    time.sleep(5)
+    
+def manger_du_pain(nb_vie, nb_energie) :
+    # vie
+    for i in range(nb_vie) : 
+        pyautogui.doubleClick(x = v.x_sort_1 , y= v.y_sort_1)
+        time.sleep(0.1)
+            # energie
+    time.sleep(1)
+    for i in range(nb_energie) : 
+        pyautogui.doubleClick(x = v.x_sort_2 , y= v.y_sort_2)
+        time.sleep(0.1)
+    time.sleep(rand.uniform(0.9,3))
     
 def transfert_bank_all(hibou_banque_x, hibou_banque_y):
     dofus_click(hibou_banque_x, hibou_banque_y,0.5,3) # clique parler à l hibou
