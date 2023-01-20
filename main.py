@@ -118,6 +118,9 @@ while True :
             
             if da.combat_debut() :
                 print("debut combat")
+                print("-- prendre du pain")
+                da.manger_du_pain(nb_vie = 10, nb_energie = 10)
+                print("-- pain mangé")
                 time.sleep(0.2)
                 pyautogui.press("f1")
                 while da.combat_fini() == False :
@@ -131,9 +134,7 @@ while True :
                 time.sleep(3)
                 da.dofus_press("enter",3)
                 print("fin du combat")
-                print("prendre du pain")
-                da.manger_du_pain(nb_vie = 30, nb_energie = 20)
-                print("pain mangé")
+               
         time.sleep(3)
         
         # deplacement du personnage jusqu'a la prochaine map de recolte
