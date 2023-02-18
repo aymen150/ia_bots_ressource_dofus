@@ -36,6 +36,8 @@ path_circuit_foret_bonta = Path(path_my_bot,"circuit","foret_bonta.txt")
 path_circuit_dragoeuf = Path(path_my_bot,"circuit","presqu_ile_dragoeuf.txt")
 path_circuit_porco = Path(path_my_bot,"circuit","amakna_sud.txt")
 path_circuit_pandala_sud = Path(path_my_bot,"circuit","pandala_sud.txt")
+path_circuit_koalak = Path(path_my_bot,"circuit","koalak.txt")
+
 ###############################################
 ############## ZONE DE JEU  ###################
 ###############################################
@@ -392,8 +394,28 @@ x_consulter_banque, y_consulter_banque   = {x},{y}   #clic consulter sa banque
 """)
 
 input("""
+      Ouvrir la banque
+      zone de 'l'onglet ressource de votre personnage
+      -> ENTER : cliquer sur x1,y1 :""")
+#bord d'une map hors zone de changement de map
+x1, y1 = get_click()
+input("""
+      zone de jeu avec zone de changement de map
+      -> ENTER : cliquer sur x2,y2 :""")
+x2, y2 = get_click()
+
+x2 = x2 - x1
+y2 = y2 - y1
+
+append_write(path_f, f"""
+region_onglet_ressource = ({x1}, {y1}, {x2}, {y2}) 
+""")
+
+input("""
       -> ENTER : cliquer sur le menu avancé : """)
 x,y = get_click()
+
+
 append_write(path_f,f"""
 x_menu_transfert_banque, y_menu_transfert_banque    = {x},{y}   #clic transfert avancé
 """)
@@ -562,7 +584,7 @@ x_sortie_banque_bonta, y_sortie_banque_bonta = {x},{y}   #sortie de la banque
 ####
 print("""
 commencez par :
-==> Ce rendre map banque Bonta
+==> Ce rendre map banque Pandala
 """)
 
 input("""
@@ -595,6 +617,41 @@ append_write(path_f,f"""
 x_sortie_banque_pandala, y_sortie_banque_pandala = {x},{y}   #sortie de la banque
 """)
 
+####
+print("""
+commencez par :
+==> Ce rendre map banque koalak
+""")
+
+input("""
+      -> ENTER : cliquer sur entrer dans la banque : """)
+x,y = get_click()
+append_write(path_f,f"""
+################  koalak  ##################
+pos_banque_koalak = "-20,30"
+x_entre_banque_koalak,y_entre_banque_koalak  = {x},{y}   #entrer banque
+""")
+
+input("""
+      -> ENTER : cliquer sur le conseiller (hibou) : """)
+x,y = get_click()
+append_write(path_f,f"""
+x_hibou_banque_koalak, y_hibou_banque_koalak = {x},{y}   #parler au conseiller
+""")
+
+input("""
+      -> ENTER : cliquer sur le coffre de guilde : """)
+x,y = get_click()
+append_write(path_f,f"""
+x_coffre_guilde_koalak_ouvrir, y_coffre_guilde_koalak_ouvrir  = {x},{y}  #ouvrir le coffre deguilde
+""")
+
+input("""
+      -> ENTER : cliquer sur sortie banque : """)
+x,y = get_click()
+append_write(path_f,f"""
+x_sortie_banque_koalak, y_sortie_banque_koalak = {x},{y}   #sortie de la banque
+""")
 ################################################################################################
 
 print("""

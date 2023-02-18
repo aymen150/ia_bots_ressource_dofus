@@ -29,6 +29,8 @@ def circuit(parcours = "amakna sud") :
             return circuit_dragoeuf()
         case "pandala sud" :
             return circuit_pandala_sud()
+        case "koalak" :
+            return circuit_koalak()
         case _ :
             print("Error selection circuit")
 
@@ -46,4 +48,9 @@ def circuit_amakna_sud():
 
 def circuit_pandala_sud():
     fichier = pd.read_csv (v.path_circuit_pandala_sud, sep=";", header=None, encoding = "UTF-8")
+    return [ str_to_map(map) for map in  fichier[0].values.tolist()]
+
+
+def circuit_koalak():
+    fichier = pd.read_csv (v.path_circuit_koalak, sep=";", header=None, encoding = "UTF-8")
     return [ str_to_map(map) for map in  fichier[0].values.tolist()]

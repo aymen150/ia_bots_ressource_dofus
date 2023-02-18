@@ -34,17 +34,19 @@ label = "models/model_all_i12/labels.txt"
 
 model_monstre9 = "models/model_monster_i10/model.pb"
 label_monstre9 = "models/model_monster_i10/labels.txt"
-model_fight = "models/model_fight_i6/model.pb"
-label_fight = "models/model_fight_i6/labels.txt"
+model_fight = "models/model_fight_i7/model.pb"
+label_fight = "models/model_fight_i7/labels.txt"
 
+model_onglet = "models/onglet_ressource_i3/model.pb"
+label_onglet = "models/onglet_ressource_i3/labels.txt"
 od_model = predict.load_model(MODEL_FILENAME = model, LABELS_FILENAME = label)
 od_model_fight = predict.load_model(MODEL_FILENAME = model_fight,LABELS_FILENAME = label_fight)
+od_model_onglet = predict.load_model(MODEL_FILENAME = model_onglet,LABELS_FILENAME = label_onglet)
+#choise "Bonta" : "Amakna" : "Sufokia" : "Pandala" : "Koalak"
+region_banque = "Koalak"
 
-#choise "Bonta" : "Amakna" : "Sufokia" : "Pandala"
-region_banque = "Sufokia"
-
-#choise : "amakna sud" : "foret bonta" : "dragoeuf" : "pandala sud" :
-region_parcours = "amakna sud"
+#choise : "amakna sud" : "foret bonta" : "dragoeuf" : "pandala sud" : "koalak"
+region_parcours = "koalak"
 
 print("""
     !!! NE PAS OUBLIER !!!
@@ -62,7 +64,6 @@ print("""
 time.sleep(3)
 pos_joueur = da.coordonnées_joueur((500,500))
 a = 0
-
 circuit = m.circuit(region_parcours) 
 while True :                                    
     for map in circuit :                      # pour chaque map du parcours
@@ -150,5 +151,5 @@ while True :
     # une fois le parcours fini direction la banque amakna déposer les ressources
     #a += 1
     #if (a%1) == 0 :
-    da.go_bank(my_pos = map_actuelle , region  = region_banque )
+    da.go_bank(my_pos = map_actuelle , region  = region_banque , model = od_model_onglet)
     #da.travel("-1,24",da.distance_map("2,-2","-1,24")) #retour au point de départ du parcours

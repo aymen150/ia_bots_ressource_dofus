@@ -10,6 +10,7 @@ path_circuit_foret_bonta = Path(path_my_bot,"circuit","foret_bonta.txt")
 path_circuit_dragoeuf = Path(path_my_bot,"circuit","presqu_ile_dragoeuf.txt")
 path_circuit_amakna_sud = Path(path_my_bot,"circuit","amakna_sud.txt")
 path_circuit_pandala_sud = Path(path_my_bot,"circuit","pandala_sud.txt")
+path_circuit_koalak = Path(path_my_bot,"circuit","koalak.txt")
 
 path_dataset = "D:/Users/Document D/project_dofus/my_bot/dataset/"
 ###############################################
@@ -107,6 +108,7 @@ x_ennemi_2, y_ennemi_2      = 1773, 833
 ###############################################
 
 ### coffre Banque : variables communes à toutes les banques
+region_onglet_ressource = (1246 , 198 , 305 ,600)
 x_consulter_banque, y_consulter_banque = 850,750 #clic consulter sa banque
 x_menu_transfert_banque, y_menu_transfert_banque = 1264,152 #clic transfert avancé
 x_all_transfert_banque, y_all_transfert_banque = 1400,165 #clic tout transferer
@@ -154,6 +156,15 @@ x_sortie_banque_pandala, y_sortie_banque_pandala =   693, 680 #clic quitter la b
 x_hibou_banque_pandala, y_hibou_banque_pandala = 1119, 423 # clique parler à l hibou
 # Cofre de guilde #
 x_coffre_guilde_pandala_ouvrir, y_coffre_guilde_pandala_ouvrir = 652, 428
+
+################  koalak  ##################
+pos_banque_koalak = "-16,4"
+x_entre_banque_koalak,y_entre_banque_koalak =  1101 , 485 # click entrer dans la banque
+x_sortie_banque_koalak, y_sortie_banque_koalak =  806 , 698 #clic quitter la banque
+#coffre bank
+x_hibou_banque_koalak, y_hibou_banque_koalak = 1085 , 475 # clique parler à l hibou
+# Cofre de guilde #
+x_coffre_guilde_koalak_ouvrir, y_coffre_guilde_koalak_ouvrir = 740 , 439
 
 
 ###############################################

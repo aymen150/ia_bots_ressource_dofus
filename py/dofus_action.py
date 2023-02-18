@@ -373,7 +373,7 @@ def other_deplacement(pos) :
 #######################################################################################################
 #######################################################################################################  
 
-def go_bank(my_pos:str ,region:str = "Amakna") :
+def go_bank(my_pos:str ,model,region:str = "Amakna") :
     match region :
         case "Amakna" :
             pos_banque = v.pos_banque_amakna
@@ -394,12 +394,17 @@ def go_bank(my_pos:str ,region:str = "Amakna") :
             pos_banque = v.pos_banque_pandala
             x_entre_banque, y_entre_banque = v.x_entre_banque_pandala, v.y_entre_banque_pandala
             x_sortie_banque, y_sortie_banque = v.x_sortie_banque_pandala, v.y_sortie_banque_pandala
-            x_coffre_guilde_ouvrir, y_coffre_guilde_ouvrir = v.x_coffre_guilde_pandala_ouvrir, v.y_coffre_guilde_pandala_ouvrir  
+            x_coffre_guilde_ouvrir, y_coffre_guilde_ouvrir = v.x_coffre_guilde_pandala_ouvrir, v.y_coffre_guilde_pandala_ouvrir
+        case "Koalak" : 
+            pos_banque = v.pos_banque_koalak
+            x_entre_banque, y_entre_banque = v.x_entre_banque_koalak, v.y_entre_banque_koalak
+            x_sortie_banque, y_sortie_banque = v.x_sortie_banque_koalak, v.y_sortie_banque_koalak
+            x_coffre_guilde_ouvrir, y_coffre_guilde_ouvrir = v.x_coffre_guilde_koalak_ouvrir, v.y_coffre_guilde_koalak_ouvrir  
 
     enter_bank(my_pos, pos_banque, x_entre_banque ,y_entre_banque )
     ouvrir_coffre_guilde(x_coffre_guilde_ouvrir, y_coffre_guilde_ouvrir)
-    transfert_coffre_ressource("ressource",30)
-    transfert_coffre_ressource("potion",10)
+    transfert_coffre_ressource("ressource",model)
+    transfert_coffre_ressource("potion",model)
     fermer_coffre_guilde()
     out_bank(x_sortie_banque, y_sortie_banque)       
             
@@ -422,14 +427,16 @@ def ouvrir_coffre_guilde(coffre_guilde_x, coffre_guilde_y):
 def fermer_coffre_guilde():
     dofus_click(v.x_coffre_guilde_fermer,v.y_coffre_guilde_fermer,0.5,4)
 
-def transfert_coffre_ressource(onglet_inventaire, nb_ressource) :
+def transfert_coffre_ressource(onglet_inventaire, model) :
     match onglet_inventaire :
         case "ressource" :
             dofus_click(v.x_coffre_guilde_onglet_ressource, v.y_coffre_guilde_onglet_ressource,0.5,4)
-            transfert_ressource(v.x_coffre_guilde_ressource, v.y_coffre_guilde_ressource, nb_ressource)
+            transfert_ressource(v.x_coffre_guilde_ressource, v.y_coffre_guilde_ressource,30)
         case "potion" :
             dofus_click(v.x_coffre_guilde_onglet_potion, v.y_coffre_guilde_onglet_potion, 0.5,2)
-            transfert_ressource(v.x_coffre_guilde_potion, v.y_coffre_guilde_potion, nb_ressource)
+            prediction = model.predict_image(pyautogui.screenshot(region = v.region_onglet_ressource ))
+            nb_ressource = len( [x for x in prediction if (x["probability"] > 0.6)])
+            transfert_ressource(v.x_coffre_guilde_ressource, v.y_coffre_guilde_ressource, nb_ressource -2)
     time.sleep(5)
 
 def transfert_ressource(x,y,nb) :
@@ -719,7 +726,7 @@ def predictions_to_click(predictions, w_size, h_size, proba_poisson = 0.5, proba
     """
     list_click_poisson = [pos_bounding_click(x["boundingBox"],w_size, h_size,1) for x in predictions if  ((x["tagName"] == "poisson") and (x["probability"]) > proba_poisson)] 
     list_click_bois =  [pos_bounding_click(x["boundingBox"],w_size, h_size,0.8) for x in predictions if ((x["tagName"] == "bois") and (x["probability"]) > proba_bois)] 
-    list_click_plante =  [pos_bounding_click(x["boundingBox"],w_size, h_size,1) for x in predictions if ((x["tagName"] == "plante") and (x["probability"]) > proba_plante)] 
+    list_click_plante =  [pos_bounding_click(x["boundingBox"],w_size, h_size,0.7) for x in predictions if ((x["tagName"] == "plante") and (x["probability"]) > proba_plante)] 
     return list_click_poisson + list_click_plante + list_click_bois
 
 

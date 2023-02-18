@@ -7,7 +7,7 @@ from pathlib import Path
 """
 ce script note dans nom_parcours le chemin que vous etes en train de parcourir dans dofus
 """
-path_file = __file__
+path_file = Path(__file__).parent
 def generator_circuit(nom_parcours, mode = "w" ) :
     path_parcours = Path(path_file,"circuit",f"{nom_parcours}.txt")
     if mode == "w" :
@@ -50,5 +50,5 @@ def generator_circuit(nom_parcours, mode = "w" ) :
 
         
 if __name__ == "__main__" :
-    name_file = "pandala_sud"
+    name_file = "koalak"
     generator_circuit(name_file)

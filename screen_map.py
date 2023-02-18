@@ -8,10 +8,10 @@ from pathlib import Path
 
 
 while True:
-            time.sleep(4)
-            pyautogui.keyDown("y")                         #surbrillance des ressources de la map en cours
-            time.sleep(0.15)
-            image = pyautogui.screenshot(region=v.region_gameplay)  #screenshot de la region de jeu
+            time.sleep(3)
+           # pyautogui.keyDown("y")                         #surbrillance des ressources de la map en cours
+          #  time.sleep(0.15)
+            image = pyautogui.screenshot(region=(370, 194, 310, 606))  #screenshot de la region de jeu
             pyautogui.keyUp("y")
-            p = Path(r"D:\Users\Document D\project_dofus\dataset\ressource3", f"{randint(1000,1000000)}.png")   
+            p = Path(r"D:\Users\Document D\project_dofus\dataset\inventaire", f"{randint(1000,1000000)}.png")   
             image.save(p)     
